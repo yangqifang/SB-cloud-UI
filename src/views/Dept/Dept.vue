@@ -27,7 +27,6 @@
       }
     },
     mounted() {
-      console.log('mounted')
       if (this.checkedDeptId) {
         this.$refs['deptTree'].setCheckedKeys([this.checkedDeptId])
       }

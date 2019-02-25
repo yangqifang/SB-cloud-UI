@@ -22,3 +22,12 @@ export function update(json) {
     data: json
   })
 }
+
+//查询部门是否存在
+export function exist(json) {
+  return request({
+    url: '/admin/dept/exist',
+    method: 'post',
+    data: json
+  })
+}

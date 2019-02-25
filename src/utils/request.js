@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
+import {Message, MessageBox} from 'element-ui'
 import store from '../store'
-import { getToken } from '@/utils/auth'
+import {getToken} from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
@@ -13,7 +13,9 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['Authorization'] = 'bearer ' + store.getters.token
+      if (!config.headers['Authorization']) {
+        config.headers['Authorization'] = 'bearer ' + getToken()
+      }
     }
     return config
   },
@@ -62,7 +64,7 @@ service.interceptors.response.use(
   error => {
     console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      message: '系统错误! 请联系管理员',
       type: 'error',
       duration: 5 * 1000
     })

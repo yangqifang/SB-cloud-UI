@@ -15,9 +15,11 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // permission control
 import permission from './utils/VuePermissions'
+import VCharts from 'v-charts'
 
+Vue.use(VCharts)
 Vue.use(permission)
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, {locale})
 
 Vue.config.productionTip = false
 

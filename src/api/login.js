@@ -22,12 +22,15 @@ export function getInfo(token) {
   })
 }
 
-export function logout() {
+export function logout(token) {
   return request({
     url: '/oauth/token',
     method: 'delete',
     headers: {
       'Authorization': 'Basic c3BkYXRhOnNlY3JldA=='
+    },
+    params: {
+      'access_token': token
     }
   })
 }

@@ -5,17 +5,16 @@
         <p>角色列表:
           <el-button type="primary" icon="el-icon-plus" @click="showDialog" size="mini" circle></el-button>
         </p>
-        <el-checkbox-group v-model="checkboxRole" :max="1" @change="RoleChange">
-          <el-checkbox v-for="(item,key) in roleList" :key="key"
-                       :label="item.id">{{item.name}}
-          </el-checkbox>
-        </el-checkbox-group>
+        <el-radio-group v-model="checkboxRole" :max="1" @change="RoleChange">
+          <el-radio v-for="(item,key) in roleList" :key="key"
+                    :label="item.id">{{item.name}}
+          </el-radio>
+        </el-radio-group>
       </el-col>
       <el-col :span="8">
         <p>菜单列表:</p>
         <el-tree :data="treeMenu" ref="menuTree"
                  node-key="id"
-                 :check-strictly="true"
                  :props="treeMenuprops"
                  :show-checkbox="true"
                  :default-expand-all="true">
@@ -48,15 +47,15 @@
 </template>
 
 <script>
-  import { roleinfo, Permission, getRolemenu, getRolePermission, UpdateMenu, UpdatePermission, save } from '@/api/Role'
-  import { getMenu } from '@/api/login'
+  import {roleinfo, Permission, getRolemenu, getRolePermission, UpdateMenu, UpdatePermission, save} from '@/api/Role'
+  import {getMenu} from '@/api/login'
 
   export default {
     name: 'index',
     data() {
       return {
         roleList: [],
-        checkboxRole: [],
+        checkboxRole: null,
         treeMenu: [],
         treeMenuprops: {
           label: 'title',
@@ -117,42 +116,46 @@
       },
       RoleChange(value) {
         this.checkboxRole = value
-        if (value.length > 0) {
-          this.getThisRoleMenu(value[0])
-          this.getThisRolePermission(value[0])
-        } else {
-          this.checkPermission = []
-          this.$refs.menuTree.setCheckedKeys([])
-        }
+        /**
+         * 清空
+         * @type {Array}
+         */
+        this.checkPermission = []
+        this.$refs.menuTree.setCheckedKeys([])
+        /**
+         * 获取选中角色的菜单与权限信息
+         */
+        this.getThisRoleMenu(this.checkboxRole)
+        this.getThisRolePermission(this.checkboxRole)
       },
       updateRoleMenu() {
-        if (this.checkboxRole > 0) {
+        if (this.checkboxRole) {
           var json = {
-            RoleId: this.checkboxRole[0],
+            RoleId: this.checkboxRole,
             MenuId: this.$refs.menuTree.getCheckedKeys()
           }
           UpdateMenu(json).then(res => {
-            this.$message({ message: res.message, type: 'success' })
+            this.$message({message: res.message, type: 'success'})
           }).catch(error => {
             console.log(error)
           })
         } else {
-          this.$message({ message: '你还没选择角色', type: 'warning' })
+          this.$message({message: '你还没选择角色', type: 'warning'})
         }
       },
       updateCheckPermission() {
-        if (this.checkboxRole.length > 0) {
+        if (this.checkboxRole) {
           var json = {
             PermissionId: this.checkPermission,
-            RoleId: this.checkboxRole[0]
+            RoleId: this.checkboxRole
           }
           UpdatePermission(json).then(res => {
-            this.$message({ message: res.message, type: 'success' })
+            this.$message({message: res.message, type: 'success'})
           }).catch(error => {
             console.log(error)
           })
         } else {
-          this.$message({ message: '你还没选择角色', type: 'warning' })
+          this.$message({message: '你还没选择角色', type: 'warning'})
         }
       },
       showDialog() {
