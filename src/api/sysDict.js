@@ -24,3 +24,13 @@ export function update(json) {
     data: json
   })
 }
+
+export function remove(id) {
+  return request({
+    url: '/admin/sysdict/delect',
+    method: 'post',
+    data: {
+      id: id
+    }
+  })
+}

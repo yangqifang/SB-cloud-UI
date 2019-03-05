@@ -54,6 +54,7 @@
     name: 'index',
     data() {
       return {
+        visible2: false,
         roleList: [],
         checkboxRole: null,
         treeMenu: [],

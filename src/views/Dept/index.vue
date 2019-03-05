@@ -14,7 +14,7 @@
             <Dept :DeptData="deptTreeData" :props="deptProps" v-model="editform.parent"></Dept>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="updataClick">提交修改</el-button>
+            <el-button type="primary" size="mini" @click="updataClick">提交修改</el-button>
           </el-form-item>
         </el-form>
       </el-col>

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(username, password) {
   return request({
-    url: '/oauth/token',
+    url: '/auth/oauth/token',
     method: 'post',
     headers: {
       'Authorization': 'Basic c3BkYXRhOnNlY3JldA=='
@@ -24,7 +24,7 @@ export function getInfo(token) {
 
 export function logout(token) {
   return request({
-    url: '/oauth/token',
+    url: '/auth/oauth/token',
     method: 'delete',
     headers: {
       'Authorization': 'Basic c3BkYXRhOnNlY3JldA=='
