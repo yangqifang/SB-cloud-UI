@@ -3,7 +3,6 @@
     <el-row :gutter="20">
       <el-col :span="4">
         <Dept v-model="checkedDeptId" :DeptData="DeptTree" :props="DeptProps"></Dept>
-        <p>{{checkedDeptId}}</p>
       </el-col>
       <el-col :span="20">
         <el-button type="primary" size="small" v-permission="'ROLE_ADMIN'" @click="addButtonClick">添加</el-button>

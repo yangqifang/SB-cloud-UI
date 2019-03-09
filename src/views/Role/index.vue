@@ -3,7 +3,10 @@
     <el-row :gutter="20" style="margin-top: 15px">
       <el-col :span="8">
         <p>角色列表:
-          <el-button type="primary" icon="el-icon-plus" @click="showDialog" size="mini" circle></el-button>
+          <el-button-group>
+            <el-button type="primary" @click="showDialog" size="mini">添加</el-button>
+            <el-button type="danger" size="mini" v-if="checkboxRole" @click="deleteRoleClick()">删除</el-button>
+          </el-button-group>
         </p>
         <el-radio-group v-model="checkboxRole" :max="1" @change="RoleChange">
           <el-radio v-for="(item,key) in roleList" :key="key"
@@ -47,14 +50,22 @@
 </template>
 
 <script>
-  import {roleinfo, Permission, getRolemenu, getRolePermission, UpdateMenu, UpdatePermission, save} from '@/api/Role'
+  import {
+    roleinfo,
+    Permission,
+    getRolemenu,
+    getRolePermission,
+    UpdateMenu,
+    UpdatePermission,
+    save,
+    delect
+  } from '@/api/Role'
   import {getMenu} from '@/api/login'
 
   export default {
     name: 'index',
     data() {
       return {
-        visible2: false,
         roleList: [],
         checkboxRole: null,
         treeMenu: [],
@@ -170,6 +181,32 @@
           console.log(error)
           this.showSaveDialog = false
         })
+      },
+      deleteRoleClick() {
+        this.$confirm('确定删除这个角色吗,角色关系将无法恢复', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          delect(this.checkboxRole).then(res => {
+            let {code} = res
+            if (code == 2000) {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            } else {
+              this.$message.error("删除失败")
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       }
     }
   }

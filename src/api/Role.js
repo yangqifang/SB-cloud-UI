@@ -8,6 +8,16 @@ export function save(json) {
   })
 }
 
+export function delect(id) {
+  return request({
+    url: '/admin/role/delect',
+    method: 'post',
+    data: {
+      id: id
+    }
+  })
+}
+
 export function roleinfo() {
   return request({
     url: '/admin/Account/roleinfo',
