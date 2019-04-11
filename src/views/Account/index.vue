@@ -128,7 +128,7 @@
         total: 0,
         showdialog: false,
         showSavebutton: true,
-        dialogTitle: '添加用户'
+        dialogTitle: '添加用户',
       }
     },
     created() {
