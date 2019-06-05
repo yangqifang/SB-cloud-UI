@@ -18,7 +18,6 @@
         <ve-line :data="chartData"></ve-line>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -52,7 +51,7 @@
   }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  $bg: linear-gradient( 135deg, #43CBFF 10%, #9708CC 100%);
+  $bg: linear-gradient(135deg, #43CBFF 10%, #9708CC 100%);
   .Dashboard {
     margin-top: 20px;
 
@@ -82,4 +81,3 @@
     }
   }
 </style>
-
